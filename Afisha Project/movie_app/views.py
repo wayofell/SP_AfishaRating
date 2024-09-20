@@ -43,6 +43,15 @@ def movies_detail_view(request, id):
 
 #   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
 
+# Вьюшка Фильмов с отзывами и средним рейтингом
+@api_view(['GET'])
+def movies_reviews_view(request):
+    movies = Movie.objects.all().prefetch_related('reviews')
+    serializer = MovieSerializer(movies, many=True)
+    return Response(serializer.data)
+
+#   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -   -
+
 # Вьюшка Отзывов
 
 @api_view(['GET'])
